@@ -4,7 +4,7 @@
             What's {{firstNumberGenerator}} {{expressionType}} {{secondNumberGenerator}} = ?
         </div>
         <div class="card-body">
-            <div class="row" style="margin-bottom: 20px">
+            <div class="row" style="margin-bottom: 15px">
                 <div class="col">
                     <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[0]}}</button>
                 </div>
@@ -14,10 +14,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)" >{{variantsStorage[2]}}</button>
+                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[2]}}</button>
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)" >{{variantsStorage[3]}}</button>
+                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[3]}}</button>
                 </div>
             </div>
         </div>
@@ -63,26 +63,26 @@
                     return wrongNumber;
                 }
             },
-            fillVariantsStorage(){
+            fillVariantsStorage() {
                 this.realAnswerIndex = Math.floor(Math.random() * this.numberOfVariants);
-                for (let i = 0; i < this.numberOfVariants; i++){
-                    if (i !== this.realAnswerIndex){
+                for (let i = 0; i < this.numberOfVariants; i++) {
+                    if (i !== this.realAnswerIndex) {
                         this.variantsStorage.push(this.generateWrongAnswer())
                     } else {
                         this.variantsStorage.push(this.answer)
                     }
                 }
             },
-            initAllValues(){
+            initAllValues() {
                 this.typeRandomizer();
                 this.calculateRightAnswer();
                 this.fillVariantsStorage();
             },
-            answerChecker(event){
-                if (+event.target.innerText !== this.answer){
+            answerChecker(event) {
+                if (+event.target.innerText !== this.answer) {
                     alert('Wrong!');
-                }   else {
-                    alert('Маладца')
+                } else {
+                    this.$emit('componentChanged','app-right-answer');
                 }
             }
         },

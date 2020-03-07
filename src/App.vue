@@ -7,7 +7,7 @@
         </div>
         <hr>
         <div class="col-xs-12 col-sm-8 offset-md-2 col-md-6 offset-md-3">
-            <Question/>
+                <component @componentChanged="activeComponent = $event" :is="activeComponent"></component>
         </div>
     </div>
 </template>
@@ -15,10 +15,19 @@
 <script>
 
     import Question from "@/components/Question";
+    import RightAnswer from "@/components/RightAnswer";
 
     export default {
         name: 'App',
-        components: {Question}
+        components: {
+            appRightAnswer: RightAnswer,
+            appQuestion: Question
+        },
+        data() {
+            return {
+                activeComponent: 'app-question'
+            }
+        },
     }
 </script>
 
