@@ -44,7 +44,7 @@
             numberGenerator() {
                 return Math.floor(Math.random() * this.operationMaxNumber) + 1;
             },
-            generateExpressionNumbers(){
+            generateExpressionNumbers() {
                 this.firstNumber = this.numberGenerator();
                 this.secondNumber = this.numberGenerator();
             },
@@ -89,25 +89,30 @@
                 this.fillVariantsStorage();
                 console.log(this.answer);
             },
-            resetAllValues(){
-              this.variantsStorage = [];
-              this.initAllValues();
+            resetAllValues() {
+                this.variantsStorage = [];
+                this.initAllValues();
+            },
+            shuffleVariants() {
+                let cloneArray = [...this.variantsStorage];
+                let newIndex, passedValue;
+                for (let i = cloneArray.length - 1; i > 0; i--) {
+                    newIndex = Math.floor(Math.random() * (i + 1));
+                    passedValue = cloneArray[i];
+                    cloneArray[i] = cloneArray[newIndex];
+                    cloneArray[newIndex] = passedValue;
+                }
+                this.variantsStorage = [...cloneArray]
             },
             answerChecker(event) {
                 if (+event.target.innerText !== this.answer) {
-                    this.$emit('componentChanged','app-wrong-answer');
+                    this.$emit('componentChanged', 'app-wrong-answer');
+                    this.shuffleVariants(this.variantsStorage);
+                    console.log(this.variantsStorage)
                 } else {
-                    this.$emit('componentChanged','app-right-answer');
+                    this.$emit('componentChanged', 'app-right-answer');
                     this.resetAllValues();
                 }
-            }
-        },
-        computed: {
-            firstNumberGenerator() {
-                return Math.floor(Math.random() * this.operationMaxNumber) + 1;
-            },
-            secondNumberGenerator() {
-                return Math.floor(Math.random() * this.operationMaxNumber) + 1;
             }
         },
         created() {
