@@ -1,7 +1,7 @@
 <template>
     <div class="card text-center">
         <div class="card-header">
-            What's {{firstNumberGenerator}} {{expressionType}} {{secondNumberGenerator}} = ?
+            What's {{firstNumber}} {{expressionType}} {{secondNumber}} = ?
         </div>
         <div class="card-body">
             <div class="row" style="margin-bottom: 15px">
@@ -36,9 +36,18 @@
                 numberOfVariants: 4,
                 variantsStorage: [],
                 realAnswerIndex: 0,
+                firstNumber: 0,
+                secondNumber: 0
             }
         },
         methods: {
+            numberGenerator() {
+                return Math.floor(Math.random() * this.operationMaxNumber) + 1;
+            },
+            generateExpressionNumbers(){
+                this.firstNumber = this.numberGenerator();
+                this.secondNumber = this.numberGenerator();
+            },
             typeRandomizer() {
                 if (Math.random() > 0.500) {
                     this.expressionType = '+';
@@ -47,7 +56,7 @@
                 }
             },
             calculateRightAnswer() {
-                this.answer = this.expressionType === '+' ? this.firstNumberGenerator + this.secondNumberGenerator : this.firstNumberGenerator - this.secondNumberGenerator;
+                this.answer = this.expressionType === '+' ? this.firstNumber + this.secondNumber : this.firstNumber - this.secondNumber;
             },
             generateWrongAnswer() {
                 let wrongNumber = 0;
@@ -74,15 +83,22 @@
                 }
             },
             initAllValues() {
+                this.generateExpressionNumbers();
                 this.typeRandomizer();
                 this.calculateRightAnswer();
                 this.fillVariantsStorage();
+                console.log(this.answer);
+            },
+            resetAllValues(){
+              this.variantsStorage = [];
+              this.initAllValues();
             },
             answerChecker(event) {
                 if (+event.target.innerText !== this.answer) {
-                    alert('Wrong!');
+                    this.$emit('componentChanged','app-wrong-answer');
                 } else {
                     this.$emit('componentChanged','app-right-answer');
+                    this.resetAllValues();
                 }
             }
         },
@@ -96,7 +112,6 @@
         },
         created() {
             this.initAllValues();
-            console.log(this.answer);
         }
     }
 </script>
