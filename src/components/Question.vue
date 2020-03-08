@@ -4,20 +4,9 @@
             What's {{firstNumber}} {{expressionType}} {{secondNumber}} = ?
         </div>
         <div class="card-body">
-            <div class="row" style="margin-bottom: 15px">
-                <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[0]}}</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[1]}}</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[2]}}</button>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[3]}}</button>
+            <div class="row row-cols-2">
+                <div class="col" style="margin-bottom: 10px" v-for="(variant, index) in numberOfVariants" :key="variant">
+                    <button class="btn btn-primary" @click="answerChecker($event)">{{variantsStorage[index]}}</button>
                 </div>
             </div>
         </div>
