@@ -19,7 +19,6 @@
         data() {
             return {
                 operationMaxNumber: 100,
-                questionExpression: 1,
                 expressionType: '+',
                 answer: 0,
                 numberOfVariants: 4,
