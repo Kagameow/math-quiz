@@ -1,5 +1,7 @@
 # math-quiz
 
+live version to play with https://codesandbox.io/s/github/Kagameow/math-quiz
+
 ## Project setup
 ```
 npm install
